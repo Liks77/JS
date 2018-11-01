@@ -71,8 +71,7 @@ const addLogin = function (login) {
     }
 };
 
-console.log(addLogin('Ajax'));
-console.log(addLogin('robotGoogles'));
-console.log(addLogin('Zod'));
-console.log(addLogin('jqueryisextremelyfast'));
-console.log(allLogins);
+// addLogin('Ajax');
+// addLogin('robotGoogles');
+// addLogin('Zod');
+// addLogin('jqueryisextremelyfast');
