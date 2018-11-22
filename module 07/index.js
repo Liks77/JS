@@ -21,7 +21,7 @@ const posts = [
     }
   ];
 
-  function createPostCard(post) {
+  function createPostCard() {
 //     <!-- <div class="post">
 //     <img class="post__image" src="http://via.placeholder.com/400x150" alt="post image">
 //     <h2 class="post__title">Lorem ipsum dolor</h2>
