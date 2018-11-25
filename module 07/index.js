@@ -21,43 +21,41 @@ const posts = [
     }
   ];
 
-  function createPostCard() {
-//     <!-- <div class="post">
-//     <img class="post__image" src="http://via.placeholder.com/400x150" alt="post image">
-//     <h2 class="post__title">Lorem ipsum dolor</h2>
-//     <p class="post__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, nemo dignissimos ea temporibus voluptatem maiores maxime consequatur impedit nobis sunt similique voluptas accusamus consequuntur, qui modi nesciunt veritatis distinctio rem!</p>
-//     <a class="button" href="#">Read more</a>
-// </div> -->
-    let div = document.createElement('div');
+  function createPostCard({img, title, text, link}) {
+    const div = document.createElement('div');
     div.classList.add('post');
 
     const image = document.createElement('img');
     image.classList.add('post__image');
-    image.setAttribute('src', post.img);
+    image.setAttribute('src', img);
     image.setAttribute('alt', 'post image');
-  
+
     const postTitle = document.createElement('h2');
     postTitle.classList.add('post__title');
-    postTitle.textContent = post.title;
+    postTitle.textContent = title;
   
     const postText = document.createElement('p');
     postText.classList.add('post__text');
-    postText.textContent = post.text;
+    postText.textContent = text;
 
     const postLink = document.createElement('a');
     postLink.classList.add('button');
-    postLink.textContent = post.link;
+    postLink.textContent = link;
     postLink.setAttribute('href', '#');
   
-    div.append(image);
-    div.append(postTitle);
-    div.append(postText);
-    div.append(postLink);
-  
+    div.append(image, postTitle, postText, postLink);
+    
     return div;
   }
   
-  
-  const root = document.querySelector('#root');
-  root.append(createPostCard(posts));
-  
+  const createPostCards = (posts) => {
+    const element = posts.map(post => createPostCard(post))
+
+    return element;
+};
+
+const root = document.querySelector('#root');
+
+const cards = createPostCards(posts);
+
+root.append(...cards);
