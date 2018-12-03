@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        padding: 0.5rem;
+    }
+
+    /* form {
+        max-width: 900px;
+        padding: 0.5rem;
+        margin: auto;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    ul {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    button {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0 1 33%;
+        margin-bottom: 0.5rem;
+
+    } */
+    </style>
+<body>
+    <form class="form js-form">
+        <section>
+          <h2>Screen size</h2>
+          <ul>
+            <li><label><input type="checkbox" name="size" value="13"> 13"</label></li>
+            <li><label><input type="checkbox" name="size" value="15"> 15"</label></li>
+            <li><label><input type="checkbox" name="size" value="17"> 17"</label></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Color</h2>
+          <ul>
+            <li><label><input type="checkbox" name="color" value="white"> white</label></li>
+            <li><label><input type="checkbox" name="color" value="gray"> gray</label></li>
+            <li><label><input type="checkbox" name="color" value="black"> black</label></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Release date</h2>
+          <ul>
+            <li><label><input type="checkbox" name="release_date" value="2015"> 2015</label></li>
+            <li><label><input type="checkbox" name="release_date" value="2016"> 2016</label></li>
+            <li><label><input type="checkbox" name="release_date" value="2017"> 2017</label></li>
+          </ul>
+        </section>
+        <button type="submit">Filter</button>
+        <button type="reset" class="js-reset-btn">Clear</button>
+      </form>
+
+
+      <div id="laptop_card"></div>
+      <template id="laptop-template">
+          {{#each findLaptops}}
+        <img src="{{img}}" alt="laptop" class="laptops_img">
+          <ul class="laptops_info">
+            <li><h2 class="title">{{name}}</h2></li>
+            <li><p class="details">Size: {{size}}</p></li>
+            <li><p class="details">Color: {{color}}</p></li>
+            <li><p class="details">Realise date: {{release_date}}</p></li>
+            <li><p class="details">Price: {{price}}</p></li>
+            <li><p class="details">Description: {{descr}}</p></li>
+          </ul>
+          {{/each}}
+      </template>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+      <script src="index.js"></script>    
+</body>
+</html>
