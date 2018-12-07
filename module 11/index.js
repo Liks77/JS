@@ -130,7 +130,7 @@ function okLaptops(filter){
   const release_date = filter.release_date;
   const findLaptops = laptops.filter
   (laptop => 
-    {size.length ? size.includes(String(laptop.size)) :
+    {return size.length ? size.includes(String(laptop.size)) :
     true && color.length ? color.includes(String(laptop.color)) : 
     true && release_date.length !== 0 ?
     release_date.includes(String(laptop.release_date)) : true;
