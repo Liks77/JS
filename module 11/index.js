@@ -1,5 +1,7 @@
 'use strict';
 
+let newFill = [];
+
 const laptops = [
     {
       size: 13,
@@ -92,59 +94,118 @@ const laptops = [
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
     },
   ];
+  const form = document.querySelector('.js-form');
+const createFilter = document.querySelector('.filter');
+const reset = document.querySelector('.reset');
+//const visual = document.getElementById('#notebook'); 
+//const newVisual = document.querySelector('.notebook');
 
-const form = document.querySelector('.js-form');
-const btnReset = document.querySelector('.js-reset-btn');
-const card = document.querySelector('#laptop_card');
+createFilter.addEventListener('click', handleFilter);
+reset.addEventListener('click', formReset);
 
 
-form.addEventListener('submit', btnClick);
-btnReset.addEventListener('click', btnResetfunc);
 
-const filter = {
-  size: [],
-  color: [],
-  release_date: []
-};
 
-function btnClick(event){
-  event.preventDefault();
 
-  const checkboxes = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'));
+
+//let filtered = { size: [], color: [], release_date: [] };
+
+function handleFilter(event){
+  event.preventDefault(); 
+  filterReset();
   
-  const filter = checkboxes
-    .reduce((acc, checkbox) => {acc[checkbox.name]
-    .push(checkbox.value);
-    return acc;}, 
-    {size: [], color: [], release_date: []})
+  const inputs = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+  const filtered = inputs.reduce((acc, input) =>{
+  console.log(input.name);
+  console.log(input.value);
+  acc[input.name].push(input.value)
+  return acc;
+  },
+  { size: [], color: [], release_date: []},
+  );
+  
+  console.log(filtered);
+  const filterTypes = Object.keys(filtered);
+  const toAdd = laptops.filter(laptop => {
+  return filterTypes.every(el => {
+  return filtered[el].includes(String(laptop[el]))
+  })
+  });
+  console.log(toAdd);
+  newFill = toAdd;
+  
+  const card = document.getElementById('laptop').innerHTML.trim();
+  const template = Handlebars.compile(card);
+  const markup = template(newFill);
+  let notebook = document.getElementById('notebook');
+  notebook.insertAdjacentHTML('afterbegin', markup);
+  
+  
+ }
+ 
+ function formReset(event) {
+  filterReset();
+  form.reset();
+  newFill = [];
+ }
+ 
+ function filterReset() {
+  newFill = [];
+  notebook.innerHTML = '';
+ };
 
-    okLaptops(filter);
+// const form = document.querySelector('.js-form');
+// const btnReset = document.querySelector('.js-reset-btn');
+// const card = document.querySelector('#laptop_card');
 
-    console.log(filter);
-    form.reset();
-}
 
-function okLaptops(filter){
-  const size = filter.size;
-  const color = filter.color;
-  const release_date = filter.release_date;
-  const findLaptops = laptops.filter
-  (laptop => 
-    {return size.length ? size.includes(String(laptop.size)) :
-    true && color.length ? color.includes(String(laptop.color)) : 
-    true && release_date.length !== 0 ?
-    release_date.includes(String(laptop.release_date)) : true;
-    });
+// form.addEventListener('submit', btnClick);
+// btnReset.addEventListener('click', btnResetfunc);
 
-    console.log(findLaptops);
+// const filter = {
+//   size: [],
+//   color: [],
+//   release_date: []
+// };
 
-  const source = document.querySelector('#laptop-template').innerHTML.trim();
-  const template = Handlebars.compile(source);
-  const markup = template({findLaptops});
+// function btnClick(event){
+//   event.preventDefault();
 
-card.innerHTML = markup;
-};
+//   const checkboxes = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'));
+  
+//   const filter = checkboxes
+//     .reduce((acc, checkbox) => {acc[checkbox.name]
+//     .push(checkbox.value);
+//     return acc;}, 
+//     {size: [], color: [], release_date: []})
 
-function btnResetfunc(){ 
-card.remove();
-};
+//     okLaptops(filter);
+
+//     console.log(filter);
+//     form.reset();
+// }
+
+// function okLaptops(filter){
+//   const size = filter.size;
+//   const color = filter.color;
+//   const release_date = filter.release_date;
+//   const findLaptops = laptops.filter
+//   (laptop => 
+//     {return size.length ? size.includes(String(laptop.size)) :
+//     true && color.length ? color.includes(String(laptop.color)) : 
+//     true && release_date.length !== 0 ?
+//     release_date.includes(String(laptop.release_date)) : true;
+//     });
+
+//     console.log(findLaptops);
+
+//   const source = document.querySelector('#laptop-template').innerHTML.trim();
+//   const template = Handlebars.compile(source);
+//   const markup = template({findLaptops});
+
+// card.innerHTML = markup;
+// };
+
+// function btnResetfunc(){ 
+// card.remove();
+// };

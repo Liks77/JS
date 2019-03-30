@@ -4,58 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
-<style>
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-  
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-  
-.stopwatch, ul {
-    padding: 30px;
-    margin-bottom: 30px;
-    text-align: center;
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-    color: #212121;
-    border-radius: 2px;
-}
-  
-.time {
-    margin-bottom: 15px;
-    font-family: "Roboto Mono", monospace;
-    font-size: 80px;
-}
-  
-.btn {
-    display: inline;
-    text-transform: uppercase;
-    border: 0;
-    background-color: #212121;
-    color: #ffffff;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 28px;
-    border-radius: 2px;
-    font-family: "Roboto", sans-serif;
-}
-    </style>
 </head>
-<body>
-    <div class="stopwatch">
-        <p class="time js-time">00:00.0</p>
-        <button class="btn js-start">Start</button>
-        <button class="btn js-take-lap">Lap</button>
-        <button class="btn js-reset">Reset</button>
-      </div>
-      <ul class="laps js-laps"></ul>
-</body>
+    <body>
+        <div class="stopwatch">
+            <p class="time js-time">00:00.0</p>
+            <button class="btn js-start">Start</button>
+            <button class="btn js-take-lap">Lap</button>
+            <button class="btn js-reset">Reset</button>
+        </div>
+        <ul class="laps js-laps"></ul>
+        <script src="/timer.js"></script>
+    </body>
 </html>

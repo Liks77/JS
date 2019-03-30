@@ -1,167 +1,146 @@
 'use strict';
 
-const getAllBtn = document.querySelector( '.getAllBtn' );
-let inputId = document.querySelector( '.inputId' );
-const getByIdBtn = document.querySelector( '.getByIdBtn' );
-let inputGetByName = document.querySelector( '.getByName' );
-let inputGetByAge = document.querySelector( '.getByAge' );
-const addBtn = document.querySelector( '.addBtn' );
-const delBtn = document.querySelector( '.delBtn' );
-const updateBtn = document.querySelector( '.updateBtn' );
-const result = document.querySelector( '.result' );
-const url = 'https://test-users-api.herokuapp.com/users/';
 
-getAllBtn.addEventListener( 'click', getAllUsers);
-getByIdBtn.addEventListener( 'click', getUserById );
-addBtn.addEventListener( 'click', addUser );
-delBtn.addEventListener( 'click', deleteUser );
-updateBtn.addEventListener( 'click', updateUser );
+  
+'use strict'
 
-function getAllUsers (evt) {
-  evt.preventDefault();
-  fetch(url)
-    .then( response => response.json() )
-    .then( data => {
-      if ( data.errors.length === 0 ) return data;
-      throw new Error( `Error: ${ data.errors }. Status: ${ data.status }` );
-    } )
-    .then( data => {
-      result.innerHTML = null;
-      let rowData = '';
-      data.data.forEach( item => {
-        const outData = `
-        <tr>
-          <td>${ item.id }</td>
-          <td>${ item.name }</td>
-          <td>${ item.age }</td>
-        </tr>`;
-        rowData += outData;
-      } );
-      result.innerHTML = rowData;
-      inputId = '';
-      inputGetByName = '';
-      inputGetByAge = '';
-    } )
-    .catch( err => console.error( err ) );
-}
+const usersList = document.querySelector('.js-get-users');
+const userById =  document.querySelector('.js-get-by-id');
+const userByIdInput = document.querySelector('.get-by-id');
+const addingUser = document.querySelector('.js-add-user');
+const addingName = document.querySelector('.add-user-name');
+const addingAge = document.querySelector('.add-user-age');
+const userRemove = document.querySelector('.js-remove-user');
+const userRemoveId = document.querySelector('.remove-user');
+const userEdit = document.querySelector('.js-edit-user');
+const userEditId = document.querySelector('.edit-user-id');
+const userEditName = document.querySelector('.edit-user-name');
+const userEditAge = document.querySelector('.edit-user-age');
+const results = document.querySelector('.js-results');
 
-function getUserById ( evt ) {
-  evt.preventDefault();
-  fetch( `${ url }${ inputId.value }` )
-    .then( response => response.json() )
-    .then( data => {
-      if ( data.errors.length === 0 ) return data;
-      throw new Error( `Error: ${ data.errors }. Status: ${ data.status }` );
-    } )
-    .then( data => {
-      result.innerHTML = null;
-      const item = data.data;
-      const outData = `
-        <tr>
-          <td>${ item.id }</td>
-          <td>${ item.name }</td>
-          <td>${ item.age}</td>
-        </tr>`;
-      rowData = outData;
-      result.innerHTML = rowData;
-      inputId = '';
-    } )
-    .catch( err => console.error( err ) );
-}
+usersList.addEventListener('click', getAllUsers);
+userById.addEventListener('click', getUserById);
+addingUser.addEventListener('click', addUser);
+userRemove.addEventListener('click', removeUser);
+userEdit.addEventListener('click', editUser);
 
-function addUser ( evt ) {
-  evt.preventDefault();
-  fetch( url, {
-    method: 'POST',
-    body: JSON.stringify( {
-      name: `${ inputGetByName.value }`,
-      age: `${ inputGetByAge.value }`,
-    } ),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  } )
-    .then( response => response.json() )
-    .then( data => {
-      if ( data.errors.length === 0 ) return data;
-      throw new Error( `Error: ${ data.errors }. Status: ${ data.status }` );
-    } )
-    .then( data => {
-      result.innerHTML = null;
-      const item = data.data;
-      const outData = `
-        <tr>
-          <td>${ item._id }</td>
-          <td>${ item.name }</td>
-          <td>${ item.age }</td>
-        </tr>`;
-      rowData = outData;
-      result.innerHTML = rowData;
-      inputGetByName = '';
-      inputGetByAge = '';
-    } )
-    .catch( err => console.error( err ) );
-}
 
-function deleteUser ( evt ) {
-  evt.preventDefault();
-  fetch( `${ url }${ inputId.value }`, {
-    method: 'DELETE',
-  } )
-    .then( response => response.json() )
-    .then( data => {
-      if ( data.errors.length === 0 ) return data;
-      throw new Error( `Error: ${ data.errors }. Status: ${ data.status }` );
-    } )
-    .then( data => {
-      result.innerHTML = null;
-      const item = data.data;
-      const outData = `
-        <tr>
-          <td>${ item.id }</td>
-          <td>${ item.name }</td>
-          <td>${ item.age }</td>
-        </tr>`;
-      rowData = outData;
-      result.innerHTML = rowData;
-      inputId = '';
-    } )
-    .catch( err => console.error( err ) );
-}
 
-function updateUser ( evt ) {
-  evt.preventDefault();
-  fetch( `${ url }${ inputId.value }`, {
-    method: 'PUT',
-    body: JSON.stringify( {
-      name: `${ inputGetByName.value }`,
-      age: `${ inputGetByAge.value }`,
-    } ),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  } )
-    .then( response => response.json() )
-    .then( data => {
-      if ( data.errors.length === 0 ) return data;
-      throw new Error( `Error: ${ data.errors }. Status: ${ data.status }` );
-    } )
-    .then( data => {
-      result.innerHTML = null;
-      const item = data.data;
-      const outData = `
-        <tr>
-          <td>${ item.id }</td>
-          <td>${ item.name }</td>
-          <td>${ item.age }</td>
-        </tr>`;
-      rowData = outData;
-      result.innerHTML = rowData;
-      inputId = '';
-      inputGetByName = '';
-      inputGetByAge = '';
-    } )
-    .catch( err => console.error( err ) );
-}
+function getUserById (event) {
+  event.preventDefault();
+  let id = userByIdInput.value;
+  return fetch(`https://test-users-api.herokuapp.com/users/${id}`,{
+    method: 'GET'})
+    .then(response => {
+      if(response.ok) return response.json();
+      throw new Error(`Error while fetching: ${response.statusText}`);
+    })
+    .then(data => userInfo(data)
+      //console.log(data)
+    ).catch(error => alert('sorry, error happened'));
+};
+  
+function userInfo (user) {
+      results.innerHTML = `<li> User Data:</li> 
+      <li>ID: ${user.data.id} </li> 
+      <li>NAME: ${user.data.name} </li> 
+      <li>AGE: ${user.data.age}</li>`
+};
+
+function getAllUsers (event)  { 
+  flatList();
+  event.preventDefault();
+  fetch('https://test-users-api.herokuapp.com/users/', {
+  method: 'GET'})
+  .then(response => {
+    if(response.ok) return response.json();
+    throw new Error(`Error while fetching: ${response.statusText}`);
+  })
+  //.then(data => data.data)
+  .then( data => forAllUsers(data))
+     //console.log(data))
+  .catch(error => alert('sorry, error happened'));
+ };
+
+function addUser (event) {
+  event.preventDefault();
+  const newUser = {
+    name: addingName.value,
+    age: addingAge.value
+  };
+  fetch(`https://test-users-api.herokuapp.com/users/`, {
+  method: 'POST',
+  body: JSON.stringify(newUser),
+  headers: {Accept: 'application/json','Content-Type': 'application/json',}
+}).then(response => {
+  if(response.ok) return response.json();
+  throw new Error('error while adding')})
+  .then( () => results.innerHTML = 'USER WAS ADDED')
+  .then (() => alert('user added'))
+  .catch(error => alert('sorry, error happened'));
+};
+
+function removeUser (event) {
+  event.preventDefault();
+  let id = userRemoveId.value;
+  fetch(`https://test-users-api.herokuapp.com/users/${id}`, 
+  { method: 'DELETE',})
+.then(response => {
+  if(response.ok) return response.json();
+  throw new Error(alert('error while process'))})
+.then( () => results.innerHTML = 'USER WAS DELETED')
+.then( () => alert('the user was deleted'))
+.catch(error => alert('sorry, error happened'));
+ 
+};
+
+function editUser (event){
+  event.preventDefault();
+  let id = userEditId.value;
+  const userForEdit = {
+  name: userEditName.value,
+  age: userEditAge.value,
+  };
+  fetch(`https://test-users-api.herokuapp.com/users/${id}`,
+ {method: 'PUT',
+ body: JSON.stringify(userForEdit),
+ headers: {"Content-type": "application/json; charset=UTF-8"}
+})
+ .then(response => {
+ if(response.ok) return response.json()
+ throw new Error(alert('error while process'))})
+ .then( () => results.innerHTML = 'USER WAS EDITED')
+ .then(() => alert('user edited'))
+ .catch(error => alert('sorry, error happened'));
+};
+
+function forAllUsers(allUsers){
+  const table = document.createElement('table');
+  const tableHead = document.createElement('tr');
+  const headId = document.createElement('th');
+  const headName = document.createElement('th');
+  const headAge = document.createElement('th');
+  headId.textContent = 'ID:';
+  headName.textContent = 'NAME:';
+  headAge.textContent = 'AGE:';
+  table.classList.add('table');
+  tableHead.append(headId, headName, headAge);
+  table.appendChild(tableHead);
+  allUsers.data.forEach(element => {
+    const row = document.createElement('tr');
+    const userId = document.createElement('td');
+    const userName = document.createElement('td');
+    const userAge = document.createElement('td');
+    userId.textContent = element.id;
+    userName.textContent = element.name;
+    userAge.textContent = element.age;
+    row.append(userId, userName, userAge);
+    table.appendChild(row);
+  });
+  results.appendChild(table);
+};
+
+function flatList() {
+  results.innerHTML = '';
+};
+
