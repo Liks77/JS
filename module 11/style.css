@@ -1,0 +1,50 @@
+body {
+    background: #6b4999;
+}
+ul {
+    list-style: none;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+form {
+    width: 170px;
+}
+.main {
+    display: flex;
+}
+.main__title {
+    text-transform: uppercase;
+    text-align: center;
+}
+img {
+    display: block;
+    width: 230px;
+    height: 150px;
+    align-self: center;
+}
+ul {
+    display: flex;
+    flex-direction: column;
+}
+.main__list {
+    width: 230px;
+}
+.main__list li:last-child {
+    padding-top: 10px;
+}
+.main__card {
+    display: flex;
+    margin: 10px;
+    border: 2px solid rgb(218, 9, 9);
+    background: #66c716;
+    cursor: pointer;
+}
+.card__name {
+    text-align: center;
+    font-size: 2rem;
+}
+.main__cards {
+    width: 100vw;
+}
